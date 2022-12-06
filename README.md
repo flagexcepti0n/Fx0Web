@@ -18,6 +18,7 @@ npm run dev
 
 ## Deployment
 
+### Building manually
 To deploy the website, run the following commands:
 
 ```bash
@@ -26,3 +27,16 @@ npm run build
 ```
 
 The website will be built into the `dist` directory. You can then deploy the contents of this directory to your web server.
+
+### Using docker
+To deploy the website using docker, run the following commands depending on weather you rather usr docker hub or ghcr.io:
+
+```bash
+docker pull ghcr.io/flagexcepti0n/fx0web:main
+docker run -d -p 80:80 ghcr.io/flagexcepti0n/fx0web:main
+```
+
+```bash
+docker pull flagexcept0n/fx0web:main
+docker run -d -p 80:80 flagexcept0n/fx0web:main
+```
