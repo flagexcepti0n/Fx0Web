@@ -24,7 +24,7 @@ jobs:
       packages: write
     env:
       IMAGE_NAME: "fx0web" # can't contain uppercase like the git one do
-      DOCKER_ORG: "flagexception"
+      DOCKER_ORG: "flagexcepti0n"
     steps:
       -
         name: Checkout repository
