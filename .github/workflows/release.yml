@@ -27,6 +27,7 @@ jobs:
       packages: write
     env:
       IMAGE_NAME: "fx0web" # can't contain uppercase like the git one do
+      DOCKER_ORG: "flagexception"
     steps:
       -
         name: Checkout repository
@@ -57,7 +58,7 @@ jobs:
         with:
           images: |
             ghcr.io/${{ github.REPOSITORY_OWNER }}/${{ env.IMAGE_NAME }}
-            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}
+            ${{ env.DOCKER_ORG }}/${{ env.IMAGE_NAME }}
       -
         name: Build and push
         uses: docker/build-push-action@v3
