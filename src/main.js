@@ -14,7 +14,7 @@ const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
         { name: "home", path: '/', component: () => import('./pages/Home.vue') },
-        { name: "write-ups", path: '/writeups/:ctf?/:challenge?/', component: () => import('./pages/Write-ups.vue') },
+        { name: "write-ups", path: '/writeups/:ctf?/:writeup?/', component: () => import('./pages/Write-ups.vue') },
         { name: "404",path: '/:pathMatch(.*)*', redirect: '/' }
     ]
 })
@@ -31,9 +31,13 @@ app.use(createStore({
         getCtfs: state => Object.keys(state.ctfs),
     },
     mutations: {
-        addCtf(state, ctf, challenges = {}) {
+        addCtf(state, {ctf, writeups = []}) {
             // Add a new CTF to the state
-            state.ctfs[ctf] = challenges
+            state.ctfs[ctf] = writeups
+        },
+        addWriteup(state, {ctf, writeup}) {
+            // Add a new write-up to the state
+            state.ctfs[ctf].push(writeup)
         }
     }
 }))
