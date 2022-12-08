@@ -3,7 +3,7 @@
     <!--left-->
     <div class="h-full flex flex-row items-center justify-start px-7 space-x-4">
       <button @click="redirect('home')" class="text-center align-middle text-gray-50">home</button>
-      <button @click="redirect('writeup')" class="text-center align-middle text-gray-50">writeup</button>
+      <button @click="redirect('write-ups')" class="text-center align-middle text-gray-50">write-ups</button>
     </div>
 
     <!--logo (middle)-->
