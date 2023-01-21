@@ -5,7 +5,7 @@
       <!-- show the ctf list -->
       <ul class="space-y-6">
         <!-- list every ctf -->
-        <li class="list-element" v-if="getCtfs.length > 0" v-for="ctf in getCtfs">
+        <li class="list-element" v-if="Object.keys(ctfs).length > 0" v-for="ctf in Object.keys(ctfs)">
           <div @click="selectCtf(ctf)" class="text-xl text-white">{{ctf}}</div>
         </li>
 
@@ -66,10 +66,6 @@ export default {
     }
   },
   computed: {
-    getCtfs() {
-      //make the store available to the template
-      return this.$store.getters.getCtfs;
-    },
     ctfs() {
       //make the store available to the template
       return this.$store.state.ctfs;

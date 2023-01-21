@@ -27,9 +27,6 @@ app.use(createStore({
             ctfs: {},
         }
     },
-    getters: {
-        getCtfs: state => Object.keys(state.ctfs),
-    },
     mutations: {
         addCtf(state, {ctf, writeups = []}) {
             // Add a new CTF to the state
