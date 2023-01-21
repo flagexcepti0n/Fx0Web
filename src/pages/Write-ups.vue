@@ -1,7 +1,7 @@
 <template>
   <div class="w-screen h-full overflow-y-auto overflow-x-hidden p-10">
     <!-- if there's no ctf specified -->
-    <div v-if="ctf===''">
+    <div v-if="ctf==='' || ctf === undefined">
       <!-- show the ctf list -->
       <ul class="space-y-6">
         <!-- list every ctf -->
@@ -17,7 +17,7 @@
     </div>
 
     <!-- if there is a ctf specified but no challenge specified -->
-    <div v-else-if="ctf!==''&&writeup===''">
+    <div v-else-if="ctf !== '' && ctf !== undefined && writeup==='' || writeup === undefined">
       <!-- return button -->
       <div @click="selectCtf('')" class="text-gray-500">← return</div>
       <!-- show the challenges list -->
@@ -77,12 +77,13 @@ export default {
   },
   mounted() {
     this.$writeups.getCtfs();
-    this.$writeups.getWriteups(this.ctf)
+    //get writeups if there is a ctf specified in the url
+    if (this.ctf) this.$writeups.getWriteups(this.ctf);
   },
   watch: {
     $route(to, from) {
-      this.ctf = to.params.ctf || '';
-      this.writeup = to.params.writeup || '';
+      this.ctf = to.params.ctf;
+      this.writeup = to.params.writeup;
     },
     ctf(newCtf, oldCtf) {
       if (newCtf === "") { return; }
