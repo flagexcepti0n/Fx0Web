@@ -19,7 +19,7 @@
     <!-- if there is a ctf specified but no challenge specified -->
     <div v-else-if="ctf !== '' && ctf !== undefined && writeup==='' || writeup === undefined">
       <!-- return button -->
-      <div @click="selectCtf('')" class="text-gray-500">← return</div>
+      <div @click="selectCtf('')" class="text-gray-500 cursor-pointer mb-2">← return</div>
       <!-- show the challenges list -->
       <ul class="space-y-6">
         <!-- list every challenge -->
@@ -37,7 +37,7 @@
     <!-- if there is a ctf specified and a challenge specified -->
     <div v-else>
       <!-- return button -->
-      <div @click="selectWriteup('')" class="text-gray-500">← return</div>
+      <div @click="selectWriteup('')" class="text-gray-500 cursor-pointer mb-2">← return</div>
 
       <!--show challenge's writeup -->
 
