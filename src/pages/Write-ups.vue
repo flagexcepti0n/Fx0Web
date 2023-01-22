@@ -6,7 +6,7 @@
       <ul class="space-y-6">
         <!-- list every ctf -->
         <li class="list-element" v-if="getCtfs.length > 0" v-for="ctf in getCtfs">
-          <div @click="selectCtf(ctf)" class="text-xl text-white">{{ctf}}</div>
+          <div @click="selectCtf(ctf)" class="text-xl text-white select-none">{{ctf}}</div>
         </li>
 
         <!-- if there's no ctf -->
@@ -19,12 +19,12 @@
     <!-- if there is a ctf specified but no challenge specified -->
     <div v-else-if="ctf !== '' && ctf !== undefined && writeup==='' || writeup === undefined">
       <!-- return button -->
-      <div @click="selectCtf('')" class="text-gray-500 cursor-pointer mb-2">← return</div>
+      <div @click="selectCtf('')" class="text-gray-500 cursor-pointer mb-2 select-none">← return</div>
       <!-- show the challenges list -->
       <ul class="space-y-6">
         <!-- list every challenge -->
         <li class="list-element" v-if="getWriteups(this.ctf)?.length > 0" v-for="writeup in getWriteups(this.ctf)">
-          <div @click="selectWriteup(writeup)" class="text-xl text-white">{{writeup}}</div>
+          <div @click="selectWriteup(writeup)" class="text-xl text-white select-none">{{writeup}}</div>
         </li>
 
         <!-- if there's no challenge -->
@@ -37,7 +37,7 @@
     <!-- if there is a ctf specified and a challenge specified -->
     <div v-else>
       <!-- return button -->
-      <div @click="selectWriteup('')" class="text-gray-500 cursor-pointer mb-2">← return</div>
+      <div @click="selectWriteup('')" class="text-gray-500 cursor-pointer mb-2 select-none">← return</div>
 
       <!-- show the writeup name -->
       <p class="markdown-title">{{writeup}}</p>
