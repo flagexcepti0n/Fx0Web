@@ -74,6 +74,24 @@ export default {
     },
     selectWriteup(writeup) {
       this.$router.push({name: 'write-ups', params: {ctf:this.ctf, writeup}})
+    },
+    loadCtfs() {
+      //ensure that the ctfs are loaded only once
+      if (this.getCtfs.length === 0) {
+        this.$writeups.getCtfs();
+      }
+    },
+    loadWriteups(ctf) {
+      //ensure that the writups for this ctf are loaded only once
+      if (this.getWriteups(ctf) === undefined) {
+        this.$writeups.getWriteups(ctf);
+      }
+    },
+    loadMarkdown(ctf, writeup) {
+      //ensure that the markdown for this writeup is loaded only once
+      if (this.getMarkdown(ctf, writeup) === undefined) {
+        this.$writeups.getMarkdown(ctf, writeup);
+      }
     }
   },
   computed: {
@@ -84,10 +102,11 @@ export default {
     ])
   },
   mounted() {
-    this.$writeups.getCtfs();
+    this.loadCtfs();
     //get writeups if there is a ctf specified in the url
-    if (this.ctf) this.$writeups.getWriteups(this.ctf);
-    if (this.ctf && this.writeup) this.$writeups.getMarkdown(this.ctf, this.writeup);
+    if (this.ctf) this.loadWriteups(this.ctf);
+    //get markdown if there is a ctf and a writeup specified in the url
+    if (this.ctf && this.writeup) this.loadMarkdown(this.ctf, this.writeup);
   },
   watch: {
     $route(to, from) {
@@ -95,18 +114,13 @@ export default {
       this.writeup = to.params.writeup;
     },
     ctf(newCtf, oldCtf) {
-      if (newCtf === "") { return; }
+      if (newCtf === "" || newCtf === undefined) { return; }
 
-      if (this.getWriteups(this.ctf) === undefined) {
-        this.$writeups.getWriteups(newCtf);
-      }
+      this.loadWriteups(newCtf);
     },
     writeup(newWriteup, oldWriteup) {
-      if (newWriteup === "") { return; }
-
-      if (this.getMarkdown(this.ctf, this.writeup) === undefined) {
-        this.$writeups.getMarkdown(this.ctf, this.writeup);
-      }
+      if (newWriteup === "" || newWriteup === undefined) { return; }
+      this.loadMarkdown(this.ctf, newWriteup);
     }
   }
 }
