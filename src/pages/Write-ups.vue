@@ -5,7 +5,7 @@
       <!-- show the ctf list -->
       <ul class="space-y-6">
         <!-- list every ctf -->
-        <li class="list-element" v-if="Object.keys(ctfs).length > 0" v-for="ctf in Object.keys(ctfs)">
+        <li class="list-element" v-if="getCtfs.length > 0" v-for="ctf in getCtfs">
           <div @click="selectCtf(ctf)" class="text-xl text-white">{{ctf}}</div>
         </li>
 
@@ -23,7 +23,7 @@
       <!-- show the challenges list -->
       <ul class="space-y-6">
         <!-- list every challenge -->
-        <li class="list-element" v-if="ctfs[ctf]?.length > 0" v-for="writeup in ctfs[ctf]">
+        <li class="list-element" v-if="getWriteups(this.ctf)?.length > 0" v-for="writeup in getWriteups(this.ctf)">
           <div @click="selectWriteup(writeup)" class="text-xl text-white">{{writeup}}</div>
         </li>
 
@@ -47,7 +47,7 @@
 
 <script>
 
-import writeups from "../plugins/writeups.js";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Write-ups",
@@ -66,10 +66,11 @@ export default {
     }
   },
   computed: {
-    ctfs() {
-      //make the store available to the template
-      return this.$store.state.ctfs;
-    }
+    ...mapGetters([
+      'getCtfs',
+      'getWriteups',
+      'getMarkdown'
+    ])
   },
   mounted() {
     this.$writeups.getCtfs();
@@ -84,10 +85,10 @@ export default {
     ctf(newCtf, oldCtf) {
       if (newCtf === "") { return; }
 
-      if (this.$store.state.ctfs[newCtf]?.length === 0) {
+      if (this.getWriteups(this.ctf) === undefined) {
         this.$writeups.getWriteups(newCtf);
       }
-    }
+    },
   }
 }
 </script>

@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { createStore } from 'vuex'
 import App from './App.vue'
 
+
 import './tailwind.css'
 import './plugins/writeups.js'
 import writeups from "./plugins/writeups.js";
@@ -24,17 +25,39 @@ app.use(router)
 app.use(createStore({
     state () {
         return {
-            ctfs: {},
+            // These fields are separated because vuex is not reactive in complex objects
+            ctfs: [],
+            writeups: {},
+            writeups_markdown: {}
+        }
+    },
+    getters: {
+        getCtfs: state => {
+            return state.ctfs
+        },
+        getWriteups: state => ctf => {
+            return state.writeups[ctf]
+        },
+        getMarkdown: state => (ctf, writeup) => {
+            return state.writeups_markdown[ctf + '/' + writeup]
         }
     },
     mutations: {
-        addCtf(state, {ctf, writeups = []}) {
+        addCtf(state, ctf) {
             // Add a new CTF to the state
-            state.ctfs[ctf] = writeups
+            state.ctfs.push(ctf)
         },
         addWriteup(state, {ctf, writeup}) {
             // Add a new write-up to the state
-            state.ctfs[ctf].push(writeup)
+            if (state.writeups[ctf] === undefined) {
+                state.writeups[ctf] = []
+            }
+
+            state.writeups[ctf].push(writeup)
+        },
+        addWriteupMarkdown(state, {ctf, writeup, markdown}) {
+            // Add a new write-up markdown to the state
+            state.writeups_markdown[ctf + '/' + writeup] = markdown
         }
     }
 }))
