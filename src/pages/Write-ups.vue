@@ -80,6 +80,7 @@ export default {
     this.$writeups.getCtfs();
     //get writeups if there is a ctf specified in the url
     if (this.ctf) this.$writeups.getWriteups(this.ctf);
+    if (this.ctf && this.writeup) this.$writeups.getMarkdown(this.ctf, this.writeup);
   },
   watch: {
     $route(to, from) {
