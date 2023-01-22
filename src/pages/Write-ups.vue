@@ -39,8 +39,13 @@
       <!-- return button -->
       <div @click="selectWriteup('')" class="text-gray-500 cursor-pointer mb-2">← return</div>
 
+      <!-- show the writeup name -->
+      <p class="markdown-title">{{writeup}}</p>
+
       <!--show challenge's writeup -->
-      <Markdown :source="getMarkdown(ctf, writeup)"/>
+      <div class="markdown-body">
+        <Markdown :source="getMarkdown(ctf, writeup)"/>
+      </div>
     </div>
   </div>
 </template>
@@ -49,6 +54,8 @@
 
 import { mapGetters } from "vuex";
 import Markdown from 'vue3-markdown-it';
+
+import '../assets/github-markdown.css';
 
 export default {
   name: "Write-ups",
@@ -105,9 +112,16 @@ export default {
 }
 </script>
 
-
 <style scoped>
 .list-element {
   @apply bg-gray-700 opacity-75 hover:opacity-100 w-full rounded-xl p-4 transition-opacity duration-300 ease-in-out;
+}
+
+.markdown-title {
+  @apply text-xl font-bold text-white rounded p-2;
+}
+
+.markdown-body {
+  @apply rounded p-4 border-gray-600 border;
 }
 </style>
