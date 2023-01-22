@@ -32,6 +32,32 @@ export default {
                     }
                 })
             },
+            getMarkdown(ctf, writeup) {
+                console.log("Getting write-up " + writeup + " for " + ctf)
+                // Get the file from the write-ups repo
+                fetch(`https://api.github.com/repos/flagexcepti0n/write-ups/contents/${ctf}/${writeup}`).then(response => {
+                    //check if the response is ok
+                    if (response.ok) {
+                        //get the content of the file
+                        response.json().then(content => {
+                            // decode the base64 content
+                            props.$store.commit('addMarkdown',{ ctf, writeup, markdown: atob(content.content)})
+                        })
+                    }
+                })
+            },
+            getRessource(ctf, ressource) {
+                console.log("Getting ressource " + ressource + " for " + ctf)
+                // Get the resource from the write-ups repo
+                fetch(`https://api.github.com/repos/flagexcepti0n/write-ups/contents/${ctf}/${writeup}`).then(response => {
+                    //check if the response is ok
+                    if (response.ok) {
+                        //return the url of the resource content
+                        response.json().then(content => {
+                            return content.download_url;
+                        })
+                    }
+                })
             }
         }
     }

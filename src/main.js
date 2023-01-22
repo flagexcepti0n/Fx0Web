@@ -55,7 +55,7 @@ app.use(createStore({
 
             state.writeups[ctf].push(writeup)
         },
-        addWriteupMarkdown(state, {ctf, writeup, markdown}) {
+        addMarkdown(state, {ctf, writeup, markdown}) {
             // Add a new write-up markdown to the state
             state.writeups_markdown[ctf + '/' + writeup] = markdown
         }

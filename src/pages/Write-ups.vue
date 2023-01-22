@@ -40,7 +40,7 @@
       <div @click="selectWriteup('')" class="text-gray-500 cursor-pointer mb-2">← return</div>
 
       <!--show challenge's writeup -->
-
+      <Markdown :source="getMarkdown(ctf, writeup)"/>
     </div>
   </div>
 </template>
@@ -48,6 +48,7 @@
 <script>
 
 import { mapGetters } from "vuex";
+import Markdown from 'vue3-markdown-it';
 
 export default {
   name: "Write-ups",
@@ -56,6 +57,9 @@ export default {
       ctf: this.$route.params.ctf,
       writeup: this.$route.params.writeup,
     }
+  },
+  components: {
+    Markdown
   },
   methods: {
     selectCtf(ctf) {
@@ -89,6 +93,13 @@ export default {
         this.$writeups.getWriteups(newCtf);
       }
     },
+    writeup(newWriteup, oldWriteup) {
+      if (newWriteup === "") { return; }
+
+      if (this.getMarkdown(this.ctf, this.writeup) === undefined) {
+        this.$writeups.getMarkdown(this.ctf, this.writeup);
+      }
+    }
   }
 }
 </script>
